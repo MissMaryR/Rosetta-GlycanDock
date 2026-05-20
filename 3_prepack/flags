@@ -1,0 +1,29 @@
+## ── GlycanDock Stage 0 prepack flags ─────────────────────────────────────────
+## Run ONCE before the docking array job.
+## Output: results/input_aligned_0001.pdb  (prepacked, clash-free starting structure)
+## Copy that file to CL3_fixed/input_aligned.pdb, then submit the docking array.
+
+## ── Required glycan handling ──────────────────────────────────────────────
+-include_sugars
+-alternate_3_letter_codes pdb_sugar
+-maintain_links
+-lock_rings
+
+## ── Docking partners ─────────────────────────────────────────────────────
+-docking:partners A_X
+
+## ── Prepack only (Stage 0) ────────────────────────────────────────────────
+-carbohydrates:glycan_dock:prepack_only true
+
+## ── Side-chain packing ───────────────────────────────────────────────────
+-packing::extrachi_cutoff 1
+-packing::ex1
+-packing::ex2
+-packing::ex1aro:level 6
+-packing::use_input_sc
+-packing::flip_HNQ
+-packing::no_optH false
+-packing::optH_MCA false
+
+## ── Suppress irrelevant patch types ─────────────────────────────────────
+-chemical:exclude_patches LowerDNA UpperDNA Cterm_amidation VirtualBB ShoveBB VirtualDNAPhosphate VirtualNTerm CTermConnect sc_orbitals pro_hydroxylated_case1 pro_hydroxylated_case2 ser_phosphorylated thr_phosphorylated tyr_phosphorylated tyr_sulfated lys_dimethylated lys_monomethylated lys_trimethylated lys_acetylated glu_carboxylated cys_acetylated tyr_diiodinated N_acetylated C_methylamidated MethylatedProteinCterm
